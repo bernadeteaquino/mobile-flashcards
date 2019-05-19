@@ -1,7 +1,8 @@
 import React, { Component } from "react"
-import { View, Text  } from 'react-native'
+import { StyleSheet, View, FlatList, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { handleGetDecks } from '../actions/Decks'
+import Deck from './Deck'
 
 class DeckList extends Component {
     componentDidMount() {
@@ -9,21 +10,40 @@ class DeckList extends Component {
         dispatch(handleGetDecks())
     }
 
+
+    renderItem = ({item}) => (
+        <View> 
+            <TouchableOpacity>
+                <Deck title={item.title} questions={item.questions} />
+            </TouchableOpacity>
+        </View>
+      )
+
     render() {
         const { decks } = this.props
 
         return (
-            <View>
-                <Text>DeckList: { JSON.stringify(decks)} }</Text>
+            <View style={styles.container}>
+                {Object.keys(decks).length > 0 &&
+                    <FlatList 
+                        data={decks}
+                        renderItem={this.renderItem}
+                    />
+                }
             </View>
         )
     }
 }
 
-const mapStateToProps = (state) => {
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+    }
+})
 
+const mapStateToProps = (state) => {
     return {
-        decks: state.decks.data
+        decks: Object.values(state.decks.data).sort()
     }
 }
 

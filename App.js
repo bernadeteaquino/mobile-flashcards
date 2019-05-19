@@ -4,17 +4,16 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import middleware from './middleware'
-import DeckList from './components/DeckList'
+import AppNavigator from './components/AppNavigator'
 
 export default class App extends React.Component {
-
     store = createStore(reducer, middleware)
 
     render() {
         return (
             <Provider store={this.store}>
                 <View style={styles.container}>
-                    <DeckList />
+                    <AppNavigator />
                 </View>
             </Provider>
         )
@@ -22,10 +21,8 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    container: {
+      flex: 1,
+      paddingTop: 25
+    },
+  })
