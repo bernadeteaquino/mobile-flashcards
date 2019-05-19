@@ -1,4 +1,4 @@
-import { GET_DECKS } from '../utils/Constants'
+import { GET_DECKS, ADD_DECK } from '../utils/Constants'
 
 const initialState = {
     data: [],
@@ -13,6 +13,13 @@ const decks = (state = initialState, action) => {
                 isLoading: false,
                 data: action.decks
             }
+        case ADD_DECK: {
+            const { decks } = action
+            return {
+                ...state,
+                data: decks
+            }
+        }
         default:
             return state
     }

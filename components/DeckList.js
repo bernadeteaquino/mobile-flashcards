@@ -28,6 +28,7 @@ class DeckList extends Component {
                     <FlatList 
                         data={decks}
                         renderItem={this.renderItem}
+                        keyExtractor={(item) => item.title}
                     />
                 }
             </View>

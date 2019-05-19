@@ -1,5 +1,5 @@
 import { GET_DECKS } from '../utils/Constants'
-import { fetchDecks } from '../utils/API'
+import { fetchDecks, addDeck } from '../utils/API'
 
 export default function getDecks(decks) {
   return {
@@ -12,5 +12,20 @@ export function handleGetDecks() {
     return (dispatch) => {
         return fetchDecks()
             .then((decks) => dispatch(getDecks(decks)))
+    }
+}
+
+function createDeck(decks) {
+    return {
+        type: ADD_DECK,
+        decks: decks
+    }
+}
+
+export function handleCreateDeck(deck) {
+    addDeck(deck)
+    return (dispatch) => {
+        return fetchDecks()
+            .then((decks) => dispatch(createDeck(decks)))
     }
 }

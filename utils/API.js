@@ -34,6 +34,10 @@ function setupData() {
 
 export function fetchDecks() {
 	return AsyncStorage.getItem(DECKS_KEY).then(results => {
-		return results === null ? setupData() : JSON.parse(results)
+        return results === null ? setupData() : JSON.parse(results)
 	})
+}
+
+export function addDeck(deck) {
+    return AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify(deck))
 }
