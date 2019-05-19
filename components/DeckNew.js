@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { TextInput, Button, Text, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { black } from '../utils/colors'
+import { withNavigation } from 'react-navigation'
 import { handleCreateDeck } from '../actions/Decks'
 
 class DeckNew extends Component {
@@ -27,12 +28,16 @@ class DeckNew extends Component {
 
     submit = () => {
         const item = this.state
+        const { navigation } = this.props;
     
-        this.createDeck({
-          [item.title]: {title: item.title, questions: item.questions}
+        Promise.all([
+            this.createDeck({
+                [item.title]: {title: item.title, questions: item.questions}
+            })
+        ])
+        .then(() => {
+            navigation.navigate('DeckView', { title: item.title, questions: item.questions})
         })
-    
-        //TODO navegar
       }
 
     render() {
@@ -79,4 +84,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default connect()(DeckNew)
+export default withNavigation(connect()(DeckNew))

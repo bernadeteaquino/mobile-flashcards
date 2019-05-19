@@ -1,4 +1,4 @@
-import { GET_DECKS } from '../utils/Constants'
+import { GET_DECKS, ADD_DECK } from '../utils/Constants'
 import { fetchDecks, addDeck } from '../utils/API'
 
 export default function getDecks(decks) {

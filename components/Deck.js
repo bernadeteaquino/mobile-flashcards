@@ -1,5 +1,6 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { gray, white } from '../utils/colors'
 
 class Deck extends Component {
     render() {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         height: 125,
-        backgroundColor: '#fff',
+        backgroundColor: white,
         justifyContent: 'center',
         alignItems: 'center',
         borderBottomColor: '#bbb',
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     },
     counter: {
         fontSize: 20, 
-        color: '#666666'
+        color: gray
     }
 })
 

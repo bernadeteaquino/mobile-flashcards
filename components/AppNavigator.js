@@ -1,8 +1,8 @@
 import React from 'react'
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation'
-import { MaterialIcons } from '@expo/vector-icons'
 import DeckList from './DeckList'
 import DeckNew from './DeckNew'
+import DeckView from './DeckView'
 import { FontAwesome } from '@expo/vector-icons'
 
 const TabNavigation = createBottomTabNavigator(
@@ -28,6 +28,12 @@ const AppNavigation = createStackNavigator(
     {
         Home: {
             screen: TabNavigation,
+            navigationOptions: {
+                header: null
+            }
+        },
+        DeckView: {
+            screen: DeckView,
             navigationOptions: {
                 header: null
             }
