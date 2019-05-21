@@ -58,6 +58,7 @@ class Quiz extends Component {
                         />
                     : <Score 
                         score={score}
+                        total={deck.questions.length}
                         restartQuiz={this.restartQuiz}
                         />
                 }
