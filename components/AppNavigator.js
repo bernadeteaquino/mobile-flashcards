@@ -3,6 +3,7 @@ import { createStackNavigator, createAppContainer, createBottomTabNavigator } fr
 import DeckList from './DeckList'
 import DeckNew from './DeckNew'
 import DeckView from './DeckView'
+import QuestionNew from './QuestionNew'
 import { FontAwesome } from '@expo/vector-icons'
 
 const TabNavigation = createBottomTabNavigator(
@@ -34,6 +35,12 @@ const AppNavigation = createStackNavigator(
         },
         DeckView: {
             screen: DeckView,
+            navigationOptions: {
+                header: null
+            }
+        },
+        QuestionNew: {
+            screen: QuestionNew,
             navigationOptions: {
                 header: null
             }

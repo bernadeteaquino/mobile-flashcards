@@ -1,4 +1,4 @@
-import { GET_DECKS, ADD_DECK } from '../utils/Constants'
+import { GET_DECKS, ADD_DECK, ADD_CARD } from '../utils/Constants'
 
 const initialState = {
     data: [],
@@ -18,6 +18,17 @@ const decks = (state = initialState, action) => {
             return {
                 ...state,
                 data: decks
+            }
+        }
+        case ADD_CARD: {
+            const { deckTitle, question } = action
+
+            let newQuestions = state.data[deckTitle].questions
+            newQuestions.push(question)
+
+            return {
+                ...state,
+                [deckTitle]: {...state[deckTitle], questions: newQuestions},
             }
         }
         default:

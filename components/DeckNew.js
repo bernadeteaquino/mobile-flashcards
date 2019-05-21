@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import { TextInput, Button, Text, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { black } from '../utils/colors'
@@ -36,7 +36,7 @@ class DeckNew extends Component {
             })
         ])
         .then(() => {
-            navigation.navigate('DeckView', { title: item.title, questions: item.questions})
+            navigation.navigate('DeckView', { title: item.title })
         })
       }
 

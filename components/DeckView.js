@@ -1,70 +1,56 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { gray, black, white } from '../utils/colors'
-import { FontAwesome } from '@expo/vector-icons'
+import { connect } from 'react-redux'
+import Header from './Header'
 
 class DeckView extends Component {
     render() {
-        const { title, questions } = this.props.navigation.state.params
-        const { deck } = this.props
+        const { isntLoading, deck } = this.props
 
         return (
             <View style={styles.container}>
-                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => { this.props.navigation.navigate('DeckList') }}>
-                        <FontAwesome name='arrow-left' size={35} color={white}/>
-                    </TouchableOpacity>
-                    <Text style={styles.label}>{title}</Text>
-                </View>
-                <View style={styles.content}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.counter}>
-                        {questions.length} carta(s)
-                    </Text>
-                    <TouchableOpacity style={styles.button}
-                        onPress={() => {
-                            navigation.navigate('NewQuestion', {title: deck.title})
-                        }}
-                    >
-                        <Text style={styles.buttonTitle}>Adicionar carta</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}
-                        onPress={() => {
-                            navigation.navigate('Quiz', {title: deck.title})
-                        }}
-                    >
-                        <Text style={styles.buttonTitle}>Iniciar Quiz</Text>
-                    </TouchableOpacity>
-                </View>
+                { isntLoading && (
+                    <View style={styles.container}>
+                        <Header title={deck.title} />
+                        <View style={styles.content}>
+                            <Text style={styles.title}>{deck.title}</Text>
+                            <Text style={styles.counter}>
+                                {deck.questions.length} carta(s)
+                            </Text>
+                            <TouchableOpacity style={styles.button}
+                                onPress={() => {
+                                    this.props.navigation.navigate('QuestionNew', {title: deck.title})
+                                }}
+                            >
+                                <Text style={styles.buttonTitle}>Adicionar carta</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.button}
+                                onPress={() => {
+                                    this.props.navigation.navigate('Quiz', {title: deck.title})
+                                }}
+                            >
+                                <Text style={styles.buttonTitle}>Iniciar Quiz</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                )}
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    content: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        
-    },
-    header: {
-        paddingVertical: 10,
-        elevation: 2,
-        height: 60,
-        flexDirection: 'row',
-        backgroundColor: black,
-    },
-    label: {
-        color: 'white',
-        fontSize: 25,
-        marginLeft: 10
-    },
     container: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'stretch',
+    },
+    content: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     title: {
         fontSize: 30
@@ -91,4 +77,14 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DeckView
+const mapStateToProps = (state, ownProps) => {
+    const { navigation } = ownProps
+    const title = navigation.getParam('title')
+    const isntLoading = state.decks.data[title] !== undefined
+    return {
+        deck: state.decks.data[title],
+        isntLoading
+    }
+  }
+
+export default connect(mapStateToProps)(DeckView)

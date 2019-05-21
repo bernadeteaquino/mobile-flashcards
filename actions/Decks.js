@@ -1,5 +1,5 @@
-import { GET_DECKS, ADD_DECK } from '../utils/Constants'
-import { fetchDecks, addDeck } from '../utils/API'
+import { GET_DECKS, ADD_DECK, ADD_CARD } from '../utils/Constants'
+import { fetchDecks, addDeck, createCardOnDeck } from '../utils/API'
 
 export default function getDecks(decks) {
   return {
@@ -27,5 +27,21 @@ export function handleCreateDeck(deck) {
     return (dispatch) => {
         return fetchDecks()
             .then((decks) => dispatch(createDeck(decks)))
+    }
+}
+
+function addCard(deckTitle, question) {
+    return {
+        type: ADD_CARD,
+        question: question,
+        deckTitle: deckTitle
+    }
+}
+
+export function handleCreateCardOnDeck(deckTitle, question) {
+    createCardOnDeck(deckTitle, question)
+    return (dispatch) => {
+        return fetchDecks()
+            .then(() => dispatch(addCard(deckTitle, question)))
     }
 }
