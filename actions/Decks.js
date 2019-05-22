@@ -30,18 +30,20 @@ export function handleCreateDeck(deck) {
     }
 }
 
-function addCard(deckTitle, question) {
+function addCard(deck, question) {
     return {
         type: ADD_CARD,
-        question: question,
-        deckTitle: deckTitle
+        deck: deck,
+        question: question
     }
 }
 
-export function handleCreateCardOnDeck(deckTitle, question) {
-    createCardOnDeck(deckTitle, question)
+export function handleCreateCardOnDeck(deck, question) {
+    createCardOnDeck(deck, question)
     return (dispatch) => {
         return fetchDecks()
-            .then(() => dispatch(addCard(deckTitle, question)))
+            .then(() => {
+                dispatch(addCard(deck, question))
+            })
     }
 }

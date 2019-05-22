@@ -21,26 +21,26 @@ class QuestionNew extends Component {
 
     createCard = () => {
         const card = this.state
-        const deckTitle = this.props.navigation.state.params.title
-        this.props.dispatch(handleCreateCardOnDeck(deckTitle, card))
+        const { deck, dispatch } = this.props
+        dispatch(handleCreateCardOnDeck(deck, card))
         this.setState({question: '', answer: ''});
     }
 
     submit = () => {
-        const { navigation } = this.props;
+        const { deck, navigation } = this.props;
+        const card = this.state
+        deck.questions.push(card)
 
         Promise.all([
             this.createCard()
         ])
         .then(() => {
-            navigation.navigate('DeckView', { title: navigation.state.params.title })
+            navigation.navigate('DeckView', { title: deck.title })
         })
     }
 
     render() {
         const { question, answer } = this.state
-        const { navigation } = this.props
-        const { title } = navigation.state.params
 
         return (
             <View style={styles.container}>
@@ -104,4 +104,12 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect()(QuestionNew)
+const mapStateToProps = (state, ownProps) => {
+    const { navigation } = ownProps
+    const title = navigation.getParam('title')
+    return {
+        deck: state.decks.data[title]
+    }
+  }
+
+export default connect(mapStateToProps)(QuestionNew)

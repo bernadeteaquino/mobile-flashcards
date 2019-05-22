@@ -21,14 +21,12 @@ const decks = (state = initialState, action) => {
             }
         }
         case ADD_CARD: {
-            const { deckTitle, question } = action
-
-            let newQuestions = state.data[deckTitle].questions
-            newQuestions.push(question)
+            const { deck } = action
 
             return {
                 ...state,
-                [deckTitle]: {...state[deckTitle], questions: newQuestions},
+                [deck.title]: {...state[deck.title], 
+                    questions: deck.questions},
             }
         }
         default:

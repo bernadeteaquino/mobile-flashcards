@@ -6,7 +6,7 @@ import Header from './Header'
 
 class DeckView extends Component {
     render() {
-        const { isntLoading, deck } = this.props
+        const { isntLoading, deck, navigation } = this.props
 
         return (
             <View style={styles.container}>
@@ -20,14 +20,14 @@ class DeckView extends Component {
                             </Text>
                             <TouchableOpacity style={styles.button}
                                 onPress={() => {
-                                    this.props.navigation.navigate('QuestionNew', {title: deck.title})
+                                    navigation.navigate('QuestionNew', {title: deck.title})
                                 }}
                             >
                                 <Text style={styles.buttonTitle}>Adicionar carta</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button}
                                 onPress={() => {
-                                    this.props.navigation.navigate('Quiz', {title: deck.title})
+                                    navigation.navigate('Quiz', {title: deck.title})
                                 }}
                             >
                                 <Text style={styles.buttonTitle}>Iniciar Quiz</Text>

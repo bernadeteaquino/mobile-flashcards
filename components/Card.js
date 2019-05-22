@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 40,
         marginLeft: 15,
-        marginTop: 40
+        marginTop: 60
     },
     button: {
         fontSize: 25, 

@@ -29,7 +29,7 @@ const initialData =  {
 
 function setupData() {
 	AsyncStorage.setItem(DECKS_KEY, JSON.stringify(initialData))
-	return starterData
+	return initialData
 }
 
 export function fetchDecks() {
@@ -42,14 +42,14 @@ export function addDeck(deck) {
     return AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify(deck))
 }
 
-export function createCardOnDeck(deckTitle, question) {
+export function createCardOnDeck(deck, question) {
     return AsyncStorage.getItem(DECKS_KEY, (err, result) => {
         let existingDecks = JSON.parse(result)
-        let newQuestions = JSON.parse(JSON.stringify(existingDecks[deckTitle].questions))
+        let newQuestions = JSON.parse(JSON.stringify(existingDecks[deck.title].questions))
         newQuestions.push(question)
 
         const deckUpdated = JSON.stringify({
-            [deckTitle]: {title: deckTitle, questions: newQuestions},
+            [deck.title]: {title: deck.title, questions: newQuestions},
         })
 
         return AsyncStorage.mergeItem(DECKS_KEY, deckUpdated);
