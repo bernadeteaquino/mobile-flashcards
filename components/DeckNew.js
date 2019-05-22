@@ -49,7 +49,6 @@ class DeckNew extends Component {
                 <TextInput
                     value={title}
                     style={styles.title}
-                    placeholder="Título do baralho..."
                     onChangeText={title => this.setState({title})}
                 />
                 <Button

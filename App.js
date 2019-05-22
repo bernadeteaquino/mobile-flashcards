@@ -5,8 +5,14 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import middleware from './middleware'
 import AppNavigator from './components/AppNavigator'
+import { setLocalNotification } from './utils/Notification'
 
 export default class App extends React.Component {
+
+    componentDidMount() {
+        setLocalNotification()
+    }
+
     store = createStore(reducer, middleware)
 
     render() {

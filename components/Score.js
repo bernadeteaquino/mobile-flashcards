@@ -2,8 +2,14 @@ import React, { Component } from 'react'
 import { withNavigation } from 'react-navigation'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { white, black } from '../utils/colors'
+import { clearLocalNotification, setLocalNotification } from '../utils/Notification'
 
 class Score extends Component {
+    componentDidMount() {
+        clearLocalNotification()
+            .then(setLocalNotification)
+    }
+    
     render() {
         const { score, total, restartQuiz, navigation } = this.props
 
