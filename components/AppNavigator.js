@@ -7,6 +7,7 @@ import QuestionNew from './QuestionNew'
 import Quiz from './Quiz'
 import { FontAwesome } from '@expo/vector-icons'
 import { gray, white } from '../utils/colors'
+import { Animated, Easing } from 'react-native'
 
 const navigationOptions = {
     tabBarOptions: {
@@ -46,6 +47,30 @@ const TabNavigation = createBottomTabNavigator(
     navigationOptions
 )
 
+const transitionConfig = () => {
+    return {
+        transitionSpec: {
+            duration: 750,
+            easing: Easing.out(Easing.poly(4)),
+            timing: Animated.timing,
+            useNativeDriver: true,
+        },
+        screenInterpolator: sceneProps => {      
+        const { layout, position, scene } = sceneProps
+
+        const thisSceneIndex = scene.index
+        const width = layout.initWidth
+
+        const translateX = position.interpolate({
+            inputRange: [thisSceneIndex - 1, thisSceneIndex],
+            outputRange: [width, 0],
+        })
+
+        return { transform: [ { translateX } ] }
+        },
+    }
+}
+
 const AppNavigation = createStackNavigator(
     {
         Home: {
@@ -72,7 +97,8 @@ const AppNavigation = createStackNavigator(
                 header: null
             }
         }
-    }
+    },
+    transitionConfig
 )
 
 export default createAppContainer(AppNavigation)
